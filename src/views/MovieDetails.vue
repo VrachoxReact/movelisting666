@@ -55,20 +55,23 @@ onMounted(async () => {
 
 <style scoped>
 .movie-details {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .movie-info {
   display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .movie-poster {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: auto;
+  margin: 0 auto;
 }
 
 .movie-text {
@@ -77,23 +80,44 @@ onMounted(async () => {
 
 .image-gallery {
   display: flex;
-  gap: 10px;
+  gap: 0.5rem;
   overflow-x: auto;
+  padding-bottom: 1rem;
 }
 
 .gallery-image {
   width: 200px;
   height: auto;
+  flex-shrink: 0;
 }
 
 .error,
 .loading {
   text-align: center;
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
 .error {
   color: red;
+}
+
+@media (min-width: 768px) {
+  .movie-details {
+    padding: 2rem;
+  }
+
+  .movie-info {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .movie-poster {
+    margin: 0;
+  }
+
+  .image-gallery {
+    gap: 1rem;
+  }
 }
 </style>

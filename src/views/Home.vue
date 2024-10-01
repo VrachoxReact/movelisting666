@@ -8,7 +8,7 @@
         placeholder="Search movies..."
         class="search-input"
       />
-      <select v-model="sortBy" @change="fetchMovies" class="filter-select">
+      <select v-model="sortBy" @change="handleSortChange" class="filter-select">
         <option value="popularity.desc">Popularity (Descending)</option>
         <option value="popularity.asc">Popularity (Ascending)</option>
         <option value="vote_average.desc">Rating (Descending)</option>
@@ -36,16 +36,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, computed, watch } from "vue";
 import MovieList from "../components/MovieList.vue";
 import { useMovies } from "../composables/useMovies";
-
-interface SearchParams {
-  sort_by: string;
-  year: string;
-  query: string;
-}
 
 const searchQuery = ref("");
 const sortBy = ref("popularity.desc");
@@ -53,13 +47,13 @@ const year = ref("");
 
 const { movies, error, fetchMovies } = useMovies();
 
-const params = computed<SearchParams>(() => ({
+const params = computed(() => ({
   sort_by: sortBy.value,
   year: year.value,
   query: searchQuery.value,
 }));
 
-let timeout: number | null = null;
+let timeout = null;
 
 function debouncedSearch() {
   if (timeout) {
@@ -68,6 +62,10 @@ function debouncedSearch() {
   timeout = setTimeout(() => {
     fetchMovies(params.value);
   }, 300);
+}
+
+function handleSortChange() {
+  fetchMovies(params.value);
 }
 
 watch([sortBy], () => {
@@ -80,31 +78,50 @@ fetchMovies(params.value);
 
 <style scoped>
 .home {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .search-filter-container {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .search-input,
 .filter-select,
 .year-input {
-  padding: 8px;
+  width: 100%;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.search-input {
-  flex-grow: 1;
+  font-size: 1rem;
 }
 
 .error {
   color: red;
-  margin-top: 20px;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .home {
+    padding: 2rem;
+  }
+
+  .search-filter-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .search-input {
+    flex-grow: 1;
+  }
+
+  .filter-select,
+  .year-input {
+    width: auto;
+  }
 }
 </style>

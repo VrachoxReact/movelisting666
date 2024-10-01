@@ -43,10 +43,12 @@ const posterUrl = computed(() => {
   height: auto;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
 }
 
 .movie-info {
-  padding: 10px;
+  padding: 0.5rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -54,12 +56,27 @@ const posterUrl = computed(() => {
 }
 
 .movie-info h3 {
-  margin: 0 0 10px 0;
+  margin: 0 0 0.5rem 0;
   font-size: 1rem;
+  line-height: 1.2;
 }
 
 .movie-info p {
-  margin: 5px 0;
-  font-size: 0.9rem;
+  margin: 0.25rem 0;
+  font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+  .movie-info {
+    padding: 1rem;
+  }
+
+  .movie-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .movie-info p {
+    font-size: 0.9rem;
+  }
 }
 </style>

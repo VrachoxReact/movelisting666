@@ -37,6 +37,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
   background-color: var(--background-color);
+  font-size: 16px;
 }
 
 #app {
@@ -70,8 +71,8 @@ nav {
 
 main {
   flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
+  padding: 1rem;
+  max-width: 100%;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -99,6 +100,7 @@ h3 {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-size: 1rem;
 }
 
 .btn:hover {
@@ -114,5 +116,12 @@ h3 {
 
 .card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+  main {
+    padding: 2rem;
+    max-width: 1200px;
+  }
 }
 </style>
